@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     
-<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:46 GMT -->
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/forgot-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Login</title>
+        <title>Doccure - Forgot Password</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('back-end/assets/img/favicon.png') }}">
@@ -18,6 +18,11 @@
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{ asset('back-end/assets/css/style.css') }}">
+		
+		<!--[if lt IE 9]>
+			<script src="back-end/assets/js/html5shiv.min.js"></script>
+			<script src="back-end/assets/js/respond.min.js"></script>
+		<![endif]-->
     </head>
     <body>
 	
@@ -31,27 +36,28 @@
                         </div>
                         <div class="login-right">
 							<div class="login-right-wrap">
-								<h1>Login</h1>
-								<p class="account-subtitle">Access to our dashboard</p>
+								<h1>Forgot Password?</h1>
+								<p class="account-subtitle">Enter your email to get a password reset link</p>
 								
 								<!-- Form -->
 								@include('validation.back-validation')
-								<form action="{{ route('admin.login') }}" method="POST">
+								<form action="{{ route('admin.change.pass') }}" method="POST">
 									@csrf
+									<input name="token" type="hidden" value="{{ $access_token }}">
 									<div class="form-group">
-										<input name="auth" class="form-control" type="text" placeholder="Email">
+										<input name="email" class="form-control" type="text" value="{{ $email ?? old('email') }}" placeholder="Inter Email">
 									</div>
 									<div class="form-group">
-										<input name="pass" class="form-control" type="password" placeholder="Password">
+										<input name="pass" class="form-control" type="text" placeholder="Inter Password">
 									</div>
-									<div class="form-group">
-										<button class="btn btn-primary btn-block" type="submit">Login</button>
+									<div class="form-group mb-0">
+										<button class="btn btn-primary btn-block" type="submit">Change Password</button>
 									</div>
 								</form>
 								<!-- /Form -->
 								
-								<div class="text-center forgotpass"><a href="{{ route('admin.forgot') }}">Forgot Password?</a></div>
-								
+								<div class="text-center dont-have">Remember your password? <a href="{{ route('admin.login.page') }}">Login</a></div>
+							</div>
                         </div>
                     </div>
                 </div>
@@ -71,5 +77,5 @@
 		
     </body>
 
-<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:46 GMT -->
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/forgot-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
 </html>

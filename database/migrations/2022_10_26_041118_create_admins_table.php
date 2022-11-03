@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('role_id')->nullable();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('cell')->unique();
-            $table->string('username')->unique();
+            $table->string('name')->nullable();
+            $table->string('email')->unique('');
+            $table->string('cell')->unique('');
+            $table->string('username')->unique('');
             $table->string('password');
             $table->string('location')->nullable();
             $table->string('dob')->nullable();

@@ -35,7 +35,7 @@
 								<p class="account-subtitle">Access to our dashboard</p>
 								
 								<!-- Form -->
-								@include('validation.back-validation')
+								@include('validation.form-validation')
 								<form action="{{ route('admin.login') }}" method="POST">
 									@csrf
 									<div class="form-group">

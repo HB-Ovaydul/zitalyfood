@@ -1,0 +1,14 @@
+.ui-form{
+    padding: 0px;
+    margin-left: 110px;
+}
+.ui-form li{
+    list-style: noen;
+}
+.ui-table{
+    padding: 0px;
+    margin: 0;
+}
+.ui-table li{
+    list-style: none;
+}

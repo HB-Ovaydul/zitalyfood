@@ -40,7 +40,7 @@
 								<p class="account-subtitle">Enter your email to get a password reset link</p>
 								
 								<!-- Form -->
-								@include('validation.back-validation')
+								@include('validation.form-validation')
 								<form action="{{ route('admin.change.pass') }}" method="POST">
 									@csrf
 									<input name="token" type="hidden" value="{{ $access_token }}">

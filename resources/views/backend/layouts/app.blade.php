@@ -21,9 +21,10 @@
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{ asset('back-end/assets/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('back-end/admin/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('back-end/assets/DataTables/datatables.min.css') }}">
 		<!-- DataTable plugin -->
-		<link rel="stylesheet" type="text/css" href="https:/cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css"/>
-
+		{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/> --}}
 		{{-- icons --}}
 		<link rel="stylesheet" href="{{ asset('back-end/assets/icon/themify-icons.css') }}">
 		{{-- select2 --}}
@@ -82,8 +83,9 @@
 		<script src="{{ asset('back-end/assets/plugins/morris/morris.min.js') }}"></script>  
 		<script src="{{ asset('back-end/assets/js/chart.morris.js') }}"></script> --}}
 		<!-- DataTable plugin -->
-		{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
-		{{-- select2 --}}
+		{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script> --}}
+		
+		{{-- select2
 		{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 		
 		<!-- Custom JS -->
@@ -101,13 +103,11 @@
 <script src="{{ asset('back-end/assets/plugins/morris/morris.min.js') }}"></script>  
 <script src="{{ asset('back-end/assets/js/chart.morris.js') }}"></script>
 <script src="{{ asset('back-end/assets/plugins/raphael/raphael.min.js') }}"></script>  
+<script src="{{ asset('back-end/assets/DataTables/datatables.min.js') }}"></script>  
 
 <!-- Custom JS -->
 <script  src="{{ asset('back-end/assets/js/script.js') }}"></script>
+<script  src="{{ asset('back-end/admin/admin.js') }}"></script>
 
-		
-		
-    </body>
-
-<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:34 GMT -->
+</body>
 </html>

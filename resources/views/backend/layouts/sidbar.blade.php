@@ -16,8 +16,8 @@
 								<a href="#"><i class="fe fe-document"></i> <span>Authentication</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><a href="invoice-report.html">User</a></li>
-									<li><a href="invoice-report.html">Permission</a></li>
-									<li><a href="invoice-report.html">Role</a></li>
+									<li><a href="{{ route('permission.index') }}">Permission</a></li>
+									<li><a href="{{ route('role.index') }}">Role</a></li>
 								</ul>
 							</li>
 						</ul>

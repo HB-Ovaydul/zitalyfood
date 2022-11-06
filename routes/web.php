@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\AuthController;
+use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\DashboardContoller;
+use App\Http\Controllers\backend\PermissionController;
 
 // Groupe Middleware AuthMiddleware
 Route::group(['middleware' => 'dashboard.redirect'],function(){
@@ -22,5 +24,18 @@ Route::group(['middleware' => 'dashboard'], function(){
 Route::get('/dashboard',[DashboardContoller::class,'ShowDeshboard'])->name('dashboard.index');
 // LogOut Routes
 Route::get('/admin-logout',[AuthController::class,'AdminLogout'])->name('admin.logout');
+/**
+ * Admin Options Route
+ */
+// Permission routes
+Route::resource('/permission', PermissionController::class);
+Route::get('/permission-status{id}',[PermissionController::class,'permissionStatusUpdate'])->name('permission.status');
+Route::get('/permission-trash-page',[PermissionController::class,'PermissionTrashPage'])->name('permission.trash');
+Route::get('/permission-trash/{id}',[PermissionController::class,'PermissionTrashUpdate'])->name('permission.trash.update');
+// Role routes
+Route::resource('/role', RoleController::class);
+Route::get('/role-status{id}',[RoleController::class,'RoleStatusUpdate'])->name('role.status');
+Route::get('/role-trash-page',[RoleController::class,'RoleTrashPage'])->name('role.trash');
+Route::get('/role-trash/{id}',[RoleController::class,'RoleTrashUpdate'])->name('role.trash.update');
     
 });

@@ -1,6 +1,3 @@
-@if($errors -> any())
-<p class="alert alert-danger">{{ $errors -> first() }}<button class="close" data-dismiss="alert">&times;</button></p>
-@endif
 
 @if(Session::has('success-table'))
    <p class="alert alert-success">{{ Session::get('success-table') }}<button class="close" data-dismiss="alert">&times;</button></p>

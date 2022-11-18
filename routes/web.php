@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\AuthController;
 use App\Http\Controllers\backend\RoleController;
+use App\Http\Controllers\backend\ProfileController;
+use App\Http\Controllers\backend\AdminAuthConroller;
 use App\Http\Controllers\backend\DashboardContoller;
 use App\Http\Controllers\backend\PermissionController;
 
@@ -27,6 +29,12 @@ Route::get('/admin-logout',[AuthController::class,'AdminLogout'])->name('admin.l
 /**
  * Admin Options Route
  */
+
+ // User Profile Routes
+ Route::get('/admin-profile',[ProfileController::class,'ShowProfilePage'])->name('admin.profile');
+ Route::post('/admin-profile-update',[ProfileController::class,'UserDataEdit'])->name('admin.update.profile');
+ // Change User Password
+ Route::post('/change-password',[ProfileController::class,'ChangePassword'])->name('change.password');
 // Permission routes
 Route::resource('/permission', PermissionController::class);
 Route::get('/permission-status{id}',[PermissionController::class,'permissionStatusUpdate'])->name('permission.status');
@@ -37,5 +45,11 @@ Route::resource('/role', RoleController::class);
 Route::get('/role-status{id}',[RoleController::class,'RoleStatusUpdate'])->name('role.status');
 Route::get('/role-trash-page',[RoleController::class,'RoleTrashPage'])->name('role.trash');
 Route::get('/role-trash/{id}',[RoleController::class,'RoleTrashUpdate'])->name('role.trash.update');
+
+// User Create Account Routes
+Route::resource('/user', AdminAuthConroller::class);
+Route::get('/user-status{id}',[AdminAuthConroller::class,'UserStatusUpdate'])->name('user.status');
+Route::get('/user-trash-page',[AdminAuthConroller::class,'UserTrashPage'])->name('user.trash');
+Route::get('/user-trash/{id}',[AdminAuthConroller::class,'UserTrashUpdate'])->name('user.trash.update');
     
 });

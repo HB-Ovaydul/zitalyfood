@@ -1,5 +1,7 @@
 @extends('backend.layouts.app')
+@section('names', 'Permission');
 @section('content')
+@include('backend.layouts.breadcrumb')
 <div class="row">
     <div class="col-lg-8">
         <div class="card">
@@ -57,7 +59,7 @@
                 <h4 class="card-title">Add Permissions</h4>
             </div>
 
-            @include('validation.form-validation')
+            @include('validation.form')
             <div class="card-body">
                 <form action="{{ route('permission.store') }}" method="POST">
                     @csrf
@@ -85,7 +87,7 @@
                 <a class="primary" href="{{ route('permission.index') }}">Back</a>
             </div>
            
-            @include('validation.form-validation')
+            @include('validation.form')
             <div class="card-body">
                 <form action="{{ route('permission.update', $edit_permission -> id) }}" method="POST">
                     @csrf

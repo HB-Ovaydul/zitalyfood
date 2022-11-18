@@ -1,6 +1,6 @@
 .ui-form{
     padding: 0px;
-    margin-left: 110px;
+    margin-left: 20px;
 }
 .ui-form li{
     list-style: noen;
@@ -11,4 +11,9 @@
 }
 .ui-table li{
     list-style: none;
+}
+.back-prof {
+    width: 40px;
+    height: 33px;
+    object-fit: cover;
 }

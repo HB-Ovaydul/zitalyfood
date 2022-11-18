@@ -1,5 +1,7 @@
 @extends('backend.layouts.app')
+@section('names', 'Role')
 @section('content')
+@include('backend.layouts.breadcrumb')
 <div class="row">
     <div class="col-lg-8">
         <div class="card">
@@ -7,9 +9,9 @@
                 <h4 class="card-title">All Roles</h4>
                 <a class="text-danger" href="{{ route('role.trash') }}">Trash Page <i style="font-size: 14px;" class="fa fa-arrow-right"></i></a>
             </div>
-            @include('validation.table')
             <div class="card-body">
                 <div class="table-responsive">
+                    @include('validation.table')
                     <table class="table mb-0 data-table">
                         <thead>
                             <tr>
@@ -17,6 +19,7 @@
                                 <th>Name</th>
                                 <th>Slug</th>
                                 <th>Permission</th>
+                                <th>Users</th>
                                 <th>Create_at</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -35,6 +38,15 @@
                                     @empty
                                         No Permission
                                     @endforelse
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="ui-table">
+                                        @forelse (json_decode($role -> admin_user) as $ro)
+                                            <li><i class="fa fa-angle-right"></i> {{ $ro -> name }}</li>
+                                        @empty
+                                            
+                                        @endforelse
                                     </ul>
                                 </td>
                                 <td>{{ $role -> created_at -> diffForhumans() }}</td>
@@ -67,17 +79,16 @@
                 <h4 class="card-title">Add Role</h4>
             </div>
 
-            @include('validation.form-validation')
             <div class="card-body">
                 <form action="{{ route('role.store') }}" method="POST">
                     @csrf
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label">Name</label>
-                        <div class="col-lg-9">
+                    @include('validation.form')
+                    <div class="form-group">
+                        <label>Name</label>
                             <input name="name" type="text" class="form-control">
-                        </div>
                     </div>
                     <div class="form-group">
+                        <label for="">Permission</label>
                         <ul class="ui-form">
                             @forelse ($get_permission as $permission)
                             <li><input name="permission[]" type="checkbox" value="{{ $permission -> pname }}"> {{ $permission -> pname }}</li>
@@ -100,13 +111,13 @@
     @if ($form_type == 'edit')
     <div class="col-xl-4 d-flex">
         <div class="card flex-fill">
-            <div class="card-header justify content between">
+            <div class="card-header d-flex justify-content-between">
                 <h4 class="card-title">Edit Role</h4>
                 <a class="primary" href="{{ route('role.index') }}">Back</a>
 
             </div>
            
-            @include('validation.form-validation')
+            @include('validation.form')
             <div class="card-body">
                 <form action="{{ route('role.update', $role_edit -> id) }}" method="POST">
                     @csrf

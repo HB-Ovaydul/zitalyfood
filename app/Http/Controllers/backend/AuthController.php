@@ -41,9 +41,17 @@ class AuthController extends Controller
             'pass'              => 'required',
         ]);
 
-        // // Admin login process
+        // Admin login process
         if(Auth::guard('admin') -> attempt(['email' => $request -> auth, 'password' => $request -> pass ]) || Auth::guard('admin')->attempt(['cell' => $request -> auth, 'password' => $request -> pass])){
             return redirect()->route('dashboard.index');
+
+            // If Account Block 
+            if(Auth::guard('admin')->user()->status == true && Auth::guard('admin')->user()->trash == false){
+                return redirect()->route('dashboard.index');
+            }else{
+                Auth::guard('admin')->logout();
+                return redirect()->route('admin.login.page')->with('danger','Sorry Your Account Is Block');
+            }
         }else{
             return back()->with('danger','Your Emal Or password wrong');
         }

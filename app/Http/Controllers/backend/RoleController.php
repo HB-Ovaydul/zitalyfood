@@ -6,6 +6,7 @@ use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Permission;
 
 class RoleController extends Controller
@@ -18,11 +19,13 @@ class RoleController extends Controller
     public function index()
     {
         $all_roel = Role::latest()->get()->where('trash', false);
+        $admin = Admin::latest()->get();
         $get_permission = Permission::latest()->get();
         return view('backend.pages.adminoption.role.index',[
             'form_type'         => 'create',
             'all_role'          => $all_roel,
             'get_permission'    => $get_permission,
+            'admin'             => $admin,
         ]);
     }
 
@@ -58,10 +61,11 @@ class RoleController extends Controller
         // Validation
         $this->validate($request,[
             'name'  => 'required',
+            // 'permission'  => 'required',
         ]);
 
         // Data Store
-       $roles = Role::create([
+        Role::create([
             'rname'         => $request -> name,
             'slug'          => Str::slug($request -> name),
             'permission'    => json_encode($request -> permission),
@@ -91,7 +95,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $all_roel = Role::latest()->get()->where('trash', false);
-        $get_permission = Permission::latest()->get()->where('trash', false);
+        $get_permission = Permission::latest()->get();
         $role_edit = Role::findOrFail($id);
         return view('backend.pages.adminoption.role.index',[
             'form_type'         => 'edit',

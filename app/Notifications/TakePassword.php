@@ -7,22 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ForgetPassword extends Notification implements ShouldQueue
+class TakePassword extends Notification implements ShouldQueue
 {
     use Queueable;
+    public $name;
+    public $pass;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-
-     public $eamil;
-     public $token;
-    public function __construct($forget)
+    public function __construct($admin)
     {
-        $this->email = $forget -> email;
-        $this->token = $forget -> access_token;
+        $this-> name = $admin [0];
+        $this-> pass = $admin [1];
     }
 
     /**
@@ -45,9 +44,12 @@ class ForgetPassword extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/admin-forgot-viwe-page/'.$this->email.'/'.$this->token))
+                    ->line('Assalamualikum.'.$this->name)
+                    ->line('Your Password Is: '.$this->pass)
+                    ->line('Please Login then Access Our Dashboard.')
+                    ->action('Active Acount', url('/admin.login.page/'))
                     ->line('Thank you for using our application!');
+
     }
 
     /**

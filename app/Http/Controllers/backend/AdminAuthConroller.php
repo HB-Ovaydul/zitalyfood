@@ -2,40 +2,44 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Models\Permission;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Models\Admin;
+use Illuminate\Http\Request;
+use App\Notifications\TakePassword;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
-class PermissionController extends Controller
+class AdminAuthConroller extends Controller
 {
-    /**
+    
+/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $all_permission = Permission::latest()->get()->where('trash', false);
-        $role = Role::latest()->get()->where('trash', false);
-        return view('backend.pages.adminoption.permission.index',[
+       $admins = Admin::latest()->where('trash', false)->get();
+       $role_id = Role::latest()->where('trash', false)->get();
+        return view('backend.pages.adminoption.user.index',[
             'form_type' => 'create',
-            'all_permission'  => $all_permission,
-            'role'  => $role,
+            'admins'     => $admins,
+            'role_id'     => $role_id,
         ]);
     }
 
     /**
-     * Permission Trash Page
+     * Role Trash Page
      */
-    public function PermissionTrashPage()
+    public function UserTrashPage()
     {
-        $all_trash = Permission::latest()->get()->where('trash', true);
-        return view('backend.pages.adminoption.permission.trash',[
+        $all_trash = Admin::latest()->get()->where('trash', true);
+        return view('backend.pages.adminoption.user.trash',[
             'all_trash'  => $all_trash,
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -57,17 +61,32 @@ class PermissionController extends Controller
     {
         // Validation
         $this->validate($request,[
-            'name'  => 'required',
+            'name'  => 'required|unique:admins',
+            'username'  => 'required|unique:admins',
+            'email'  => 'required|email|unique:admins',
+            'phone'  => 'required|unique:admins',
         ]);
+
+        // password Generate
+
+        $pass_make = str_shuffle('ad1234567890asdfghj?><klzxcvbnm,./;-)(**&&*^%$#@!~`');
+
+        $pass = substr($pass_make, 10,6);
 
         // Data Store
-        Permission::create([
-            'pname'     => $request -> name,
-            'slug'     => Str::slug($request -> name),
+       $admin = Admin::create([
+            'name'          => $request -> name,
+            'username'      => $request -> username,
+            'email'         => $request -> email,
+            'cell'          => $request -> phone,
+            'password'      => Hash::make($pass),
+            'role_id'       => $request -> role_id,
         ]);
 
-        // Return Back
-        return back()->with('success','Permission Added Successful!');
+        $admin -> notify(new TakePassword([$admin['name'], $pass]));
+        
+        return back()->with('success', 'Accout Create Successful!');
+        
     }
 
     /**
@@ -89,21 +108,23 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $all_permission = Permission::latest()->get();
-        $edit_permission = Permission::findorFail($id);
-        return view('backend.pages.adminoption.permission.index',[
-            'form_type' => 'edit',
-            'all_permission'  => $all_permission,
-            'edit_permission'  => $edit_permission,
-        ]);
+        $admins = Admin::latest()->where('trash', false)->get();
+        $role_id = Role::latest()->get();
+        $edit_user = Admin::findOrFail($id);
+         return view('backend.pages.adminoption.user.index',[
+             'form_type' => 'edit',
+             'admins'     => $admins,
+             'role_id'     => $role_id,
+             'edit_user'    => $edit_user,
+         ]);
     }
 
     /**
-     *  Permission Status Update
+     *  User Status Update
      */
-    public function permissionStatusUpdate($id)
+    public function UserStatusUpdate($id)
     {
-       $status = Permission::findOrFail($id);
+       $status = Admin::findOrFail($id);
        if($status -> status ){
         $status -> update([
             'status'  => false,
@@ -118,11 +139,11 @@ class PermissionController extends Controller
     }
 
     /**
-     *  Trash Update
+     *  Role Trash Update
      */
-    public function PermissionTrashUpdate($id)
+    public function UserTrashUpdate($id)
     {
-        $trash_update = Permission::findOrFail($id);
+        $trash_update = Admin::findOrFail($id);
         if($trash_update -> trash){
             $trash_update -> update([
                 'trash' => false,
@@ -147,20 +168,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validation
-        $this->validate($request,[
-            'name'  => 'required',
-        ]);
-
-        // Data Update
-       $update_permission = Permission::findOrFail($id);
-       $update_permission ->update([
-            'pname'     => $request -> name,
-            'slug'     => Str::slug($request -> name),
-        ]);
-
-        // Return Back
-        return back()->with('success','Permission Updated Successful!');
+        //
     }
 
     /**
@@ -171,8 +179,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        $delete = Permission::findOrFail($id);
-        $delete -> delete();
-        return back()->with('success-table', 'Permission Deleted Successful!');
-    }
+       $delete =  Admin::findOrFail($id);
+       $delete -> delete();
+       return back()->with('success-table', 'Data Deleted Successful');
+}
 }

@@ -3570,10 +3570,11 @@ table.table-inbox tbody tr.checked {
 .profile-menu .nav-tabs.nav-tabs-solid {
 	background-color: transparent;
 }
-.profile-header img {
-    height: auto;
-    max-width: 120px;
-    width: 120px;
+.back-porf2 {
+    width: 167px;
+    height: 157px;
+    border-radius: 100%;
+    object-fit: cover;
 }
 .profile-tab-cont {
 	padding-top: 1.875rem;

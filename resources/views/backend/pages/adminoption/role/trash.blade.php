@@ -1,5 +1,7 @@
 @extends('backend.layouts.app')
+@section('names', 'Role')
 @section('content')
+@include('backend.layouts.breadcrumb')
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -29,9 +31,9 @@
                                    <td>{{ $trash -> rname }}</td>
                                    <td>{{ $trash -> slug }}</td>
                                    <td>
-                                    <ul>
-                                    @forelse (json_decode($trash-> admin_user) as $permissions)
-                                        <li>{{ $permissions -> pname }}</li>
+                                    <ul class="ui-table">
+                                    @forelse (json_decode($trash -> permission) as $permissions)
+                                        <li><i class="fa fa-angle-right"></i> {{ $permissions }}</li>
                                     @empty
                                         No Permission
                                     @endforelse

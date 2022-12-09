@@ -37,7 +37,7 @@ nav.cmn-tile-nav a:before {
     position: absolute;
     height: 0;
     width: 0;
-    top: 100%;
+    top: 99%;
 	-webkit-transition: border 0.3s, -webkit-transform 0.3s;
 	-moz-transition: border 0.3s, -moz-transform 0.3s;
 	-o-transition: border 0.3s, -o-transform 0.3s;

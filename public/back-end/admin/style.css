@@ -17,3 +17,14 @@
     height: 33px;
     object-fit: cover;
 }
+.gallery{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.gallery img {
+    width: 74px;
+    height: 101px;
+    object-fit: cover;
+}

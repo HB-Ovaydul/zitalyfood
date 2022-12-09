@@ -83,6 +83,7 @@
 		{{-- <script  src="{{ asset('back-end/assets/ckeditor/ckeditor.js') }}"></script>
 		<script  src="{{ asset('back-end/assets/js/script.js') }}"></script> --}}
 <!-- jQuery -->
+<script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
 <script src="{{ asset('back-end/assets/js/jquery-3.2.1.min.js') }}"></script>
 		
 <!-- Bootstrap Core JS -->
@@ -95,7 +96,7 @@
 <script src="{{ asset('back-end/assets/js/chart.morris.js') }}"></script>
 <script src="{{ asset('back-end/assets/plugins/raphael/raphael.min.js') }}"></script>  
 <script src="{{ asset('back-end/assets/DataTables/datatables.min.js') }}"></script>  
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Custom JS -->
 <script  src="{{ asset('back-end/assets/js/script.js') }}"></script>
 <script  src="{{ asset('back-end/admin/admin.js') }}"></script>
